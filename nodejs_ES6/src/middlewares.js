@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { fcHost, checkTokenPath } from '../config/config';
+import config from '../config/configManager';
 import { getAuthorizationToken } from './utils';
 
 const checkAccessToken = async (req, res, next) => {
@@ -13,7 +13,7 @@ const checkAccessToken = async (req, res, next) => {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       data: { token: accessToken },
-      url: `${fcHost}${checkTokenPath}`,
+      url: `${config.fcHost}${config.checkTokenPath}`,
     });
 
     req.fcToken = fcToken;

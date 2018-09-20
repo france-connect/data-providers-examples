@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import nock from 'nock';
-import { checkTokenPath, fcHost } from '../config/config';
+import config from '../config/configManager';
 
 export const validTokenConf = {
   token: '9af033eb295d0fe113988d29a26527f920114973b3a1ca7bdb44768fd0c73937',
@@ -90,9 +90,9 @@ export const expiredTokenConf = {
 export const initializeMock = () => {
   [validTokenConf, expiredTokenConf, validTokenWithoutTheRightScopesConf, malformedTokenConf]
     .forEach(({ token, responseHttpStatusCode, responseBody }) => {
-      nock(fcHost)
+      nock(config.fcHost)
         .persist()
-        .post(checkTokenPath, { token })
+        .post(config.checkTokenPath, { token })
         .reply(responseHttpStatusCode, responseBody);
     });
 };

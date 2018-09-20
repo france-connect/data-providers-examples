@@ -4,12 +4,12 @@ import logger from 'morgan';
 import checkAccessToken from './middlewares';
 import { initializeMock } from '../mock/france-connect';
 import getDgfipData from './controllers';
-import { fcHost } from '../config/config';
+import config from '../config/configManager';
 
 if (process.env.NODE_ENV !== 'production' && process.env.LOCAL_LOOP !== 'false') {
   initializeMock();
 } else {
-  console.log('\x1b[31m%s\x1b[0m', `Remote loop mode activated: this server will hit ${fcHost}`); // eslint-disable-line no-console
+  console.log('\x1b[31m%s\x1b[0m', `Remote loop mode activated: this server will hit ${config.fcHost}`); // eslint-disable-line no-console
 }
 
 const app = express();
