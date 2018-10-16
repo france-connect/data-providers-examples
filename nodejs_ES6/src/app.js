@@ -23,6 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/', checkAccessToken);
 
 // Setup routing (see https://expressjs.com/en/guide/routing.html)
+app.get('/', (req, res) => res.sendStatus(200));
 app.get('/dgfip', getDgfipData);
 
 // Starting server

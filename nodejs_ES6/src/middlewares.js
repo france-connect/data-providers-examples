@@ -3,7 +3,12 @@ import { fcHost, checkTokenPath } from '../config/config';
 import { getAuthorizationToken } from './utils';
 
 const checkAccessToken = async (req, res, next) => {
+  if (req.path === '/') {
+    return next();
+  }
+
   const accessToken = getAuthorizationToken(req);
+
   if (!accessToken) {
     return res.sendStatus(400);
   }
