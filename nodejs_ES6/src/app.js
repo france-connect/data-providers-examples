@@ -4,7 +4,9 @@ import logger from 'morgan';
 import checkAccessToken from './middlewares';
 import { initializeMock } from '../mock/france-connect';
 import getDgfipData from './controllers';
-import { fcHost } from '../config/config';
+import config from '../config/configManager';
+
+const { fcHost } = config;
 
 if (process.env.NODE_ENV !== 'production' && process.env.LOCAL_LOOP !== 'false') {
   initializeMock();
