@@ -3,6 +3,9 @@ import database from './database';
 import {
   cleanUpAccentedChars, getDay, getMonth, getTitle, getYear,
 } from './utils';
+import config from '../config/configManager';
+
+const { env } = config;
 
 const SCOPE_TO_PROPERTIES = {
   dgfip_revenu_fiscal_de_reference: ['RFR'],
@@ -65,15 +68,17 @@ export const reconcile = (userFromFranceConnect) => {
    * If some data are missing, we prefer to return null result instead of taking the risk to match
    * the wrong entry in our database.
    */
-  if (!userFromFranceConnect
-    || !userFromFranceConnect.given_name
-    || !userFromFranceConnect.family_name
-    || !userFromFranceConnect.birthdate
-    || !userFromFranceConnect.gender
-    || !userFromFranceConnect.birthdepartment
-    || !userFromFranceConnect.birthcountry
-  ) {
-    return Promise.resolve(null);
+  if (env === 'local') {
+    if (!userFromFranceConnect
+      || !userFromFranceConnect.given_name
+      || !userFromFranceConnect.family_name
+      || !userFromFranceConnect.birthdate
+      || !userFromFranceConnect.gender
+      || !userFromFranceConnect.birthdepartment
+      || !userFromFranceConnect.birthcountry
+    ) {
+      return Promise.resolve(null);
+    }
   }
 
   return database.connection.find({

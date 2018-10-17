@@ -1,9 +1,17 @@
 import axios from 'axios';
-import { fcHost, checkTokenPath } from '../config/config';
 import { getAuthorizationToken } from './utils';
+import config from '../config/configManager';
+
+const { fcHost, checkTokenPath } = config;
 
 const checkAccessToken = async (req, res, next) => {
+  if (req.path === '/') {
+    res.sendStatus(200);
+    return next();
+  }
+
   const accessToken = getAuthorizationToken(req);
+
   if (!accessToken) {
     return res.sendStatus(400);
   }
