@@ -34,14 +34,14 @@ describe('GET /dgfip', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.deep.equal({
-          RFR: '15000',
-          enfantsAChargeEnGardeAlternee: '0',
-          enfantsMajeursCelibataires: '0',
-          enfantsMajeursMariesOuChargeDeFamille: '0',
-          nbPacP: '0',
-          nombreDEnfantsACharge: '0',
+          revenuFiscalDeReference: '15000',
+          nombreDePersonnesAChargeH: '0',
+          nombreDePersonnesAChargeJ: '0',
+          nombreDePersonnesAChargeN: '0',
+          nombreDePersonnesAChargeP: '0',
+          nombreDePersonnesAChargeF: '0',
           nombreDePersonnesACharge: '0',
-          personnesInvalidesACharge: '0',
+          nombreDePersonnesAChargeR: '0',
         });
         done();
       });

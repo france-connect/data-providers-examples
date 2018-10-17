@@ -22,7 +22,7 @@ describe('filter', () => {
     const databaseEntry = {
       dataNotToBeReturn: 0,
       nombreDePersonnesACharge: 0,
-      nombreDEnfantsACharge: 0,
+      nombreDePersonnesAChargeF: 0,
     };
 
     const userScopes = ['scope_1', 'scope_2', 'dgfip_nbpac'];
@@ -34,14 +34,14 @@ describe('filter', () => {
     const databaseEntry = {
       dataNotToBeReturn: 0,
       nombreDePersonnesACharge: 0,
-      nombreDEnfantsACharge: 0,
+      nombreDePersonnesAChargeF: 0,
     };
 
     const userScopes = ['dgfip_nbpac', 'dgfip_nbpacf'];
 
     expect(filter(userScopes, databaseEntry)).to.deep.equal({
       nombreDePersonnesACharge: 0,
-      nombreDEnfantsACharge: 0,
+      nombreDePersonnesAChargeF: 0,
     });
   });
 });

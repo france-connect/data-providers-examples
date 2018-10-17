@@ -5,10 +5,10 @@ import {
 } from './utils';
 
 const SCOPE_TO_PROPERTIES = {
-  dgfip_revenu_fiscal_de_reference: ['RFR'],
+  dgfip_revenu_fiscal_de_reference: ['revenuFiscalDeReference'],
   dgfip_aft: ['adresseFiscaleDeTaxation'],
-  dgfip_nbpac: ['nombreDePersonnesACharge', 'nombreDEnfantsACharge', 'enfantsAChargeEnGardeAlternee', 'personnesInvalidesACharge', 'enfantsMajeursCelibataires', 'enfantsMajeursMariesOuChargeDeFamille', 'nbPacP'],
-  dgfip_nbpacf: ['nombreDEnfantsACharge'],
+  dgfip_nbpac: ['nombreDePersonnesACharge', 'nombreDePersonnesAChargeF', 'nombreDePersonnesAChargeH', 'nombreDePersonnesAChargeR', 'nombreDePersonnesAChargeJ', 'nombreDePersonnesAChargeN', 'nombreDePersonnesAChargeP'],
+  dgfip_nbpacf: ['nombreDePersonnesAChargeF'],
 };
 
 /**
@@ -37,11 +37,14 @@ export const filter = (userScopes, databaseEntry) => {
   const propertiesToReturn = _(filteringScopes)
     // ['dgfip_nbpac',  'dgfip_nbpacf']
     .map(scope => SCOPE_TO_PROPERTIES[scope])
-    // [['nombreDePersonnes', 'nombreDEnfantsACharge', ..., 'nbPacP'], ['nombreDEnfantsACharge']]
+    // [
+    //   ['nombreDePersonnesACharge', ..., 'nombreDePersonnesAChargeP'],
+    //   ['nombreDePersonnesAChargeF']
+    // ]
     .flatten()
-    // ['nombreDePersonnes', 'nombreDEnfantsACharge', ..., 'nbPacP', 'nombreDEnfantsACharge']
+    // ['nombreDePersonnesACharge', ..., 'nombreDePersonnesAChargeP', 'nombreDePersonnesAChargeF']
     .uniq()
-    // ['nombreDePersonnes', 'nombreDEnfantsACharge', ..., 'nbPacP']
+    // ['nombreDePersonnesACharge', ..., 'nombreDePersonnesAChargeP']
     .value();
 
   // This will return the properties in databaseEntry listed in the propertiesToReturn array
