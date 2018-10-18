@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-env mocha */
 import { expect } from 'chai';
-import { filter, isAuthorized, reconcile } from '../src/services';
+import {
+  filter, format, isAuthorized, reconcile,
+} from '../src/services';
 
 describe('isAuthorized', () => {
   it('should return not authorized for insufficient scope', () => {
@@ -42,6 +44,34 @@ describe('filter', () => {
     expect(filter(userScopes, databaseEntry)).to.deep.equal({
       nombreDePersonnesACharge: 0,
       nombreDePersonnesAChargeF: 0,
+    });
+  });
+});
+
+describe('format', () => {
+  it('should add a detailed address object in the result', () => {
+    const databaseEntry = {
+      adresseFiscaleDeTaxation: '20 avenue de Ségur,,75007,Paris',
+    };
+
+    expect(format(databaseEntry)).to.deep.equal({
+      adresseFiscaleDeTaxation: '20 avenue de Ségur,,75007,Paris',
+      adresseFiscaleDeTaxationDetail: {
+        codePostal: '75007',
+        commune: 'Paris',
+        complementAdresse: '',
+        voie: '20 avenue de Ségur',
+      },
+    });
+  });
+
+  it('should not modify object if no address is provided', () => {
+    const databaseEntry = {
+      dataNotToBeModified: 0,
+    };
+
+    expect(format(databaseEntry)).to.deep.equal({
+      dataNotToBeModified: 0,
     });
   });
 });

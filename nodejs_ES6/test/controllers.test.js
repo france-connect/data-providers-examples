@@ -34,6 +34,7 @@ describe('GET /dgfip', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.deep.equal({
+          nombreDeParts: '3',
           revenuFiscalDeReference: '15000',
           nombreDePersonnesAChargeH: '0',
           nombreDePersonnesAChargeJ: '0',
