@@ -9,7 +9,18 @@ import { validTokenConf, validTokenWithoutTheRightScopesConf, initializeMock } f
 chai.use(chaiHttp);
 const { expect } = chai;
 
-describe('GET /dgfip', () => {
+describe('GET /', () => {
+  it('should return a 200 OK', (done) => {
+    chai.request(app)
+      .get('/')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+});
+
+describe('GET /api/dgfip', () => {
   beforeEach(() => {
     initializeMock();
   });
@@ -17,9 +28,9 @@ describe('GET /dgfip', () => {
     nock.cleanAll();
   });
 
-  it('it should return 403 when user has not the right scope', (done) => {
+  it('should return 403 when user has not the right scope', (done) => {
     chai.request(app)
-      .get('/dgfip')
+      .get('/api/dgfip')
       .set('Authorization', `Bearer ${validTokenWithoutTheRightScopesConf.token}`)
       .end((err, res) => {
         expect(res).to.have.status(403);
@@ -27,9 +38,9 @@ describe('GET /dgfip', () => {
       });
   });
 
-  it('it should return 200 with data according to user scopes', (done) => {
+  it('should return 200 with data according to user scopes', (done) => {
     chai.request(app)
-      .get('/dgfip')
+      .get('/api/dgfip')
       .set('Authorization', `Bearer ${validTokenConf.token}`)
       .end((err, res) => {
         expect(res).to.have.status(200);

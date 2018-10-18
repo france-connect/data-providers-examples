@@ -20,10 +20,11 @@ if (process.env.NODE_ENV !== 'test') {
 }
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use('/', checkAccessToken);
+app.use('/api', checkAccessToken);
 
 // Setup routing (see https://expressjs.com/en/guide/routing.html)
-app.get('/dgfip', getDgfipData);
+app.get('/', healthCheck);
+app.get('/api/dgfip', getDgfipData);
 
 // Starting server
 const port = process.env.PORT || '4000';
@@ -36,7 +37,7 @@ const server = app.listen(port, () => {
 You can test it with curl:
 
   curl -X GET \\
-  http://localhost:4000/dgfip \\
+  http://localhost:4000/api/dgfip \\
   -H 'authorization: Bearer 9af033eb295d0fe113988d29a26527f920114973b3a1ca7bdb44768fd0c73937'
   `);
 });

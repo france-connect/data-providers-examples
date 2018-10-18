@@ -1,7 +1,9 @@
 import { isEmpty } from 'lodash';
 import { isAuthorized, filter, reconcile } from './services';
 
-const getDgfipData = async (req, res) => {
+export const healthCheck = (req, res) => res.sendStatus(200);
+
+export const getDgfipData = async (req, res) => {
   // First step: we make sure the user is authorized to read data from DGFIP
   if (!isAuthorized(req.fcToken)) {
     // In this case, the Fournisseur de Service as call the Fournisseur de Données with a user that
@@ -25,5 +27,3 @@ const getDgfipData = async (req, res) => {
 
   return res.json(revenuFiscalDeReference);
 };
-
-export default getDgfipData;
