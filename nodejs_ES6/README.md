@@ -21,7 +21,7 @@ npm start
 ```
 
 Note that when calling the application this will call an internal mock of FranceConnect integration server.
-To hit the actual integration remote server, set `"useFcMock": true,` in config/config.json then relaunch the serverrun the server.
+To hit the actual integration remote server, set `"useFcMock": false,` in config/config.json then relaunch the serverrun the server.
 
 ## Run the tests
 
