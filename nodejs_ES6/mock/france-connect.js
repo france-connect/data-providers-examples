@@ -1,34 +1,39 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import nock from 'nock';
-import { checkTokenPath, fcHost } from '../config/config';
+import config from '../config/configManager';
 
 const defaultResponseBody = {
   identity: {
-    given_name: 'François',
+    name: 'Seize François',
     family_name: 'Seize',
-    birthdate: '1950-01-06',
+    given_name: 'François',
+    nickname: '',
     gender: 'male',
-    birthplace: '91272',
-    birthdepartment: '48',
+    preferred_username: 'François',
+    birthdate: '1950-01-06',
+    birthplace: '',
     birthcountry: '99100',
-    email: 'francois.seize@france.fr',
     address: {
-      formatted: '26 rue Desaix, 75015 Paris',
-      street_address: '26 rue Desaix',
-      locality: 'Paris',
-      region: 'Ile-de-France',
-      postal_code: '75015',
       country: 'France',
+      formatted: '26 rue Desaix, 75015 Paris',
+      locality: 'Paris',
+      postal_code: '75015',
+      region: 'Ile-de-France',
+      street_address: '26 rue Desaix',
     },
     _claim_names: {},
-    _claim_sources: { src1: {} },
+    _claim_sources: {
+      src1: {
+        JWT: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.Int9Ig.uJPwtftRcQEhR2JYi4rIetaSA1nVt2g0oI3dZnB3yts',
+      },
+    },
   },
   client: {
-    client_id: 'c48ff5ae96e870f507507555f7bc4dd361d2aac31df219fe6e92bbcca65f73f5',
-    client_name: 'Ville de chilly FC test',
+    client_id: 'a0cd64372db6ecf39c317c0c74ce90f02d8ad7d510ce054883b759d666a996bc',
+    client_name: 'FSP1',
   },
   identity_provider_id: 'dgfip',
-  identity_provider_host: 'fip1.integ01.dev-franceconnect.fr',
+  identity_provider_host: 'fip1.dev.dev-franceconnect.fr',
   acr: 'eidas2',
 };
 
@@ -89,9 +94,9 @@ export const initializeMock = () => {
     validTokenAftScopeConf, malformedTokenConf, expiredTokenConf,
   ]
     .forEach(({ token, responseHttpStatusCode, responseBody }) => {
-      nock(fcHost)
+      nock(config.fcHost)
         .persist()
-        .post(checkTokenPath, { token })
+        .post(config.checkTokenPath, { token })
         .reply(responseHttpStatusCode, responseBody);
     });
 };
