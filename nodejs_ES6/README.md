@@ -21,15 +21,18 @@ npm start
 ```
 
 Note that when calling the application this will call an internal mock of FranceConnect integration server.
-To hit the actual fcp.integ01.dev-franceconnect.fr remote server, run the server with:
-
-```bash
-LOCAL_LOOP=false npm start
-```
+To hit the actual integration remote server, set `"useFcMock": true,` in config/config.json then relaunch the serverrun the server.
 
 ## Run the tests
 
 Run the tests with:
 ```bash
 npm test
+```
+
+## Run the linter
+
+Run the linter with:
+```bash
+npm run lint
 ```

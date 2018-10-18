@@ -83,7 +83,6 @@ describe('reconcile', () => {
       family_name: 'Nuñez',
       birthdate: '1970-08-16',
       gender: 'male',
-      birthdepartment: '25',
     };
     reconcile(userFromFranceConnect).then((record) => {
       expect(record).to.be.null;
@@ -97,7 +96,6 @@ describe('reconcile', () => {
       family_name: 'Nuñez',
       birthdate: '1970-08-16',
       gender: 'male',
-      birthdepartment: '25',
       birthcountry: '99100',
     };
     reconcile(userFromFranceConnect).then(({ SPI }) => {
@@ -112,7 +110,6 @@ describe('reconcile', () => {
       family_name: 'Nunez',
       birthdate: '1970-08-16',
       gender: 'male',
-      birthdepartment: '25',
       birthcountry: '99100',
     };
     reconcile(userFromFranceConnect).then(({ SPI }) => {
@@ -127,7 +124,6 @@ describe('reconcile', () => {
       family_name: 'Martine',
       birthdate: '1970-08-16',
       gender: 'male',
-      birthdepartment: '25',
       birthcountry: '99100',
     };
     reconcile(userFromFranceConnect).then((record) => {

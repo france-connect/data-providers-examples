@@ -21,7 +21,7 @@ describe('checkAccessToken middleware', () => {
 
   it('should return 400 when no token is provided', (done) => {
     chai.request(app)
-      .get('/undefined-route')
+      .get('/api/undefined-route')
       .end((err, res) => {
         expect(res).to.have.status(400);
         done();
@@ -30,7 +30,7 @@ describe('checkAccessToken middleware', () => {
 
   it('should return 400 when the token type is not Bearer', (done) => {
     chai.request(app)
-      .get('/undefined-route')
+      .get('/api/undefined-route')
       .set('Authorization', `Basic ${validTokenConf.token}`)
       .end((err, res) => {
         expect(res).to.have.status(400);
@@ -45,7 +45,7 @@ describe('checkAccessToken middleware', () => {
       .replyWithError({ code: 'ECONNREFUSED' });
 
     chai.request(app)
-      .get('/undefined-route')
+      .get('/api/undefined-route')
       .set('Authorization', `Bearer ${validTokenConf.token}`)
       .end((err, res) => {
         expect(res).to.have.status(502);
@@ -55,7 +55,7 @@ describe('checkAccessToken middleware', () => {
 
   it('should return 401 when an invalid token is provided', (done) => {
     chai.request(app)
-      .get('/undefined-route')
+      .get('/api/undefined-route')
       .set('Authorization', `Bearer ${malformedTokenConf.token}`)
       .end((err, res) => {
         expect(res).to.have.status(401);
@@ -65,7 +65,7 @@ describe('checkAccessToken middleware', () => {
 
   it('should return 401 when an invalid token is provided', (done) => {
     chai.request(app)
-      .get('/undefined-route')
+      .get('/api/undefined-route')
       .set('Authorization', `Bearer ${expiredTokenConf.token}`)
       .end((err, res) => {
         expect(res).to.have.status(401);
@@ -75,7 +75,7 @@ describe('checkAccessToken middleware', () => {
 
   it('should return 404 when a valid token is provided', (done) => {
     chai.request(app)
-      .get('/undefined-route')
+      .get('/api/undefined-route')
       .set('Authorization', `Bearer ${validTokenConf.token}`)
       .end((err, res) => {
         expect(res).to.have.status(404);

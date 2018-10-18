@@ -84,15 +84,14 @@ export const format = (databaseEntry) => {
 export const reconcile = (userFromFranceConnect) => {
   /*
    * We make sure to have enough data from FranceConnect to make a reconciliation.
-   * If some data are missing, we prefer to return null result instead of taking the risk to match
-   * the wrong entry in our database.
+   * This is not useful in production environment because FranceConnect has already validated the
+   * user at this point. We keep this as an helper for development purpose.
    */
   if (!userFromFranceConnect
     || !userFromFranceConnect.given_name
     || !userFromFranceConnect.family_name
     || !userFromFranceConnect.birthdate
     || !userFromFranceConnect.gender
-    || !userFromFranceConnect.birthdepartment
     || !userFromFranceConnect.birthcountry
   ) {
     return Promise.resolve(null);
@@ -109,14 +108,12 @@ export const reconcile = (userFromFranceConnect) => {
     prenom: cleanUpAccentedChars(userFromFranceConnect.given_name).toUpperCase(),
     nomDeNaissance: cleanUpAccentedChars(userFromFranceConnect.family_name).toUpperCase(),
     /*
-     * In this implementation, we also check the birth date, the gender and the birth department
-     * and country.
+     * In this implementation, we also check the birth date, the gender and the birth country.
      */
     AAAA: getYear(userFromFranceConnect.birthdate),
     MM: getMonth(userFromFranceConnect.birthdate),
     JJ: getDay(userFromFranceConnect.birthdate),
     titre: getTitle(userFromFranceConnect.gender),
-    departementDeNaissance: userFromFranceConnect.birthdepartment,
     codePaysDeNaissance: userFromFranceConnect.birthcountry,
   }).then((results) => {
     /*
