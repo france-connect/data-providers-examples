@@ -62,8 +62,8 @@ export const filter = (userScopes, databaseEntry) => {
 export const reconcile = (userFromFranceConnect) => {
   /*
    * We make sure to have enough data from FranceConnect to make a reconciliation.
-   * If some data are missing, we prefer to return null result instead of taking the risk to match
-   * the wrong entry in our database.
+   * This is not useful in production environment because FranceConnect has already validated the
+   * user at this point. We keep this as an helper for development purpose.
    */
   if (!userFromFranceConnect
     || !userFromFranceConnect.given_name

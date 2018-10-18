@@ -29,3 +29,10 @@ Run the tests with:
 ```bash
 npm test
 ```
+
+## Run the linter
+
+Run the linter with:
+```bash
+npm run lint
+```
