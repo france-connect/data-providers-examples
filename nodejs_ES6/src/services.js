@@ -70,7 +70,6 @@ export const reconcile = (userFromFranceConnect) => {
     || !userFromFranceConnect.family_name
     || !userFromFranceConnect.birthdate
     || !userFromFranceConnect.gender
-    || !userFromFranceConnect.birthdepartment
     || !userFromFranceConnect.birthcountry
   ) {
     return Promise.resolve(null);
@@ -87,14 +86,12 @@ export const reconcile = (userFromFranceConnect) => {
     prenom: cleanUpAccentedChars(userFromFranceConnect.given_name).toUpperCase(),
     nomDeNaissance: cleanUpAccentedChars(userFromFranceConnect.family_name).toUpperCase(),
     /*
-     * In this implementation, we also check the birth date, the gender and the birth department
-     * and country.
+     * In this implementation, we also check the birth date, the gender and the birth country.
      */
     AAAA: getYear(userFromFranceConnect.birthdate),
     MM: getMonth(userFromFranceConnect.birthdate),
     JJ: getDay(userFromFranceConnect.birthdate),
     titre: getTitle(userFromFranceConnect.gender),
-    departementDeNaissance: userFromFranceConnect.birthdepartment,
     codePaysDeNaissance: userFromFranceConnect.birthcountry,
   }).then((results) => {
     /*
