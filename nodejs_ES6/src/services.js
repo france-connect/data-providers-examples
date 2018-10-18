@@ -1,14 +1,18 @@
-import _, { intersection, isEmpty } from 'lodash';
+import _, {
+  clone, intersection, isEmpty, zipObject,
+} from 'lodash';
 import database from './database';
 import {
   cleanUpAccentedChars, getDay, getMonth, getTitle, getYear,
 } from './utils';
 
 const SCOPE_TO_PROPERTIES = {
-  dgfip_revenu_fiscal_de_reference: ['RFR'],
-  dgfip_aft: ['adresseFiscaleDeTaxation'],
-  dgfip_nbpac: ['nombreDePersonnesACharge', 'nombreDEnfantsACharge', 'enfantsAChargeEnGardeAlternee', 'personnesInvalidesACharge', 'enfantsMajeursCelibataires', 'enfantsMajeursMariesOuChargeDeFamille', 'nbPacP'],
-  dgfip_nbpacf: ['nombreDEnfantsACharge'],
+  // These 2 scopes are fictitious and are meant to be used for experimentation purpose.
+  dgfip_nbpac: ['nombreDePersonnesACharge', 'nombreDePersonnesAChargeF', 'nombreDePersonnesAChargeH', 'nombreDePersonnesAChargeR', 'nombreDePersonnesAChargeJ', 'nombreDePersonnesAChargeN', 'nombreDePersonnesAChargeP'],
+  dgfip_nbpacf: ['nombreDePersonnesAChargeF'],
+  // These 2 scopes are the official DGFIP scopes
+  dgfip_revenu_fiscal_de_reference_n_moins_1: ['nombreDeParts', 'revenuFiscalDeReference'],
+  dgfip_adresse_fiscale_de_taxation_n_moins_1: ['adresseFiscaleDeTaxation'],
 };
 
 /**
@@ -37,15 +41,33 @@ export const filter = (userScopes, databaseEntry) => {
   const propertiesToReturn = _(filteringScopes)
     // ['dgfip_nbpac',  'dgfip_nbpacf']
     .map(scope => SCOPE_TO_PROPERTIES[scope])
-    // [['nombreDePersonnes', 'nombreDEnfantsACharge', ..., 'nbPacP'], ['nombreDEnfantsACharge']]
+    // [
+    //   ['nombreDePersonnesACharge', ..., 'nombreDePersonnesAChargeP'],
+    //   ['nombreDePersonnesAChargeF']
+    // ]
     .flatten()
-    // ['nombreDePersonnes', 'nombreDEnfantsACharge', ..., 'nbPacP', 'nombreDEnfantsACharge']
+    // ['nombreDePersonnesACharge', ..., 'nombreDePersonnesAChargeP', 'nombreDePersonnesAChargeF']
     .uniq()
-    // ['nombreDePersonnes', 'nombreDEnfantsACharge', ..., 'nbPacP']
+    // ['nombreDePersonnesACharge', ..., 'nombreDePersonnesAChargeP']
     .value();
 
   // This will return the properties in databaseEntry listed in the propertiesToReturn array
   return _.pick(databaseEntry, propertiesToReturn);
+};
+
+export const format = (databaseEntry) => {
+  if (!databaseEntry.adresseFiscaleDeTaxation) {
+    return databaseEntry;
+  }
+
+  const formatedDatabaseEntry = clone(databaseEntry);
+
+  formatedDatabaseEntry.adresseFiscaleDeTaxationDetail = zipObject(
+    ['voie', 'complementAdresse', 'codePostal', 'commune'],
+    databaseEntry.adresseFiscaleDeTaxation.split(','),
+  );
+
+  return formatedDatabaseEntry;
 };
 
 /**

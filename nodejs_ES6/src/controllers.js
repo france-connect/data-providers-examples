@@ -1,5 +1,7 @@
 import { isEmpty } from 'lodash';
-import { isAuthorized, filter, reconcile } from './services';
+import {
+  isAuthorized, filter, format, reconcile,
+} from './services';
 
 const getDgfipData = async (req, res) => {
   // First step: we make sure the user is authorized to read data from DGFIP
@@ -18,12 +20,15 @@ const getDgfipData = async (req, res) => {
   }
 
   // Third step: we filter the data so it returns only the data allowed for the given scope
-  const revenuFiscalDeReference = filter(
+  const allowedDatabaseEntry = filter(
     req.fcToken.scope,
     matchedDatabaseEntry,
   );
 
-  return res.json(revenuFiscalDeReference);
+  // Optional step : we format the final json to be more developer friendly
+  const formatedDatabaseEntry = format(allowedDatabaseEntry);
+
+  return res.json(formatedDatabaseEntry);
 };
 
 export default getDgfipData;
