@@ -26,6 +26,9 @@ app.use('/api', checkAccessToken);
 app.get('/', healthCheck);
 app.get('/api/dgfip', getDgfipData);
 
+// The following route is used for backward compatibility purpose (eg. /api/dgfip/OS1/2017/)
+app.get('/api/dgfip/*', getDgfipData);
+
 // Starting server
 const port = process.env.PORT || '4000';
 const server = app.listen(port, () => {
