@@ -10,7 +10,7 @@ Run the following commands:
 
 ```bash
 git clone git@github.com:france-connect/data-providers-examples.git
-cd data-providers-examples
+cd data-providers-examples/nodejs_ES6
 npm install
 ```
 
@@ -20,8 +20,12 @@ You can then start the server with:
 npm start
 ```
 
-Note that when calling the application this will call an internal mock of FranceConnect integration server.
-To hit the actual integration remote server, set `"useFcMock": false,` in config/config.json then relaunch the serverrun the server.
+Note that when calling the application this will call a local mock of FranceConnect integration server.
+
+If you are to use this app alongside the [service provider example](https://github.com/france-connect/identity-providers-examples/blob/master/NodeJSES6/data/database.csv),
+you must set `"useFcMock": false,` in config/config.json then relaunch the server.
+
+By doing this you will tell the app to remotely verify the tokens against the actual FranceConnect integration server.
 
 ## Run the tests
 
