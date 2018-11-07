@@ -1,6 +1,6 @@
 {
   "env": "local",
   "useFcMock": true,
-  "fcHost": "https://fcp.integ01.dev-franceconnect.fr",
+  "fcHost": "https://fcp.dev.dev-franceconnect.fr",
   "checkTokenPath": "/api/v1/checktoken"
 }
