@@ -4,7 +4,7 @@ An example of Data Provider for FranceConnect.
 
 The way a data provider works is explained in [FranceConnect documentation](https://partenaires.franceconnect.gouv.fr/fcp/fournisseur-donnees).
 
-## Install
+## Standalone installation
 
 Run the following commands:
 
@@ -20,7 +20,9 @@ You can then start the server with:
 npm start
 ```
 
-Note that when calling the application this will call a local mock of FranceConnect integration server.
+## Connected installation (optional)
+
+Note that the previous installation use a local mock of FranceConnect integration server.
 
 If you are to use this app alongside the [service provider example](https://github.com/france-connect/identity-providers-examples/blob/master/NodeJSES6/data/database.csv),
 you must set `"useFcMock": false,` in config/config.json then relaunch the server.
