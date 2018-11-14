@@ -1,5 +1,7 @@
 # data-providers-examples
 
+## :warning: Deprecation warning :warning: this repository has been moved to https://github.com/france-connect/data-provider-example
+
 An example of Data Provider for FranceConnect.
 
 The way a data provider works is explained in [FranceConnect documentation](https://partenaires.franceconnect.gouv.fr/fcp/fournisseur-donnees).
