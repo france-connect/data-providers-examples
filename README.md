@@ -1,3 +1,3 @@
-# data-providers-examples
+# data-providers-examples
 
-Documentation can be found [here](https://github.com/france-connect/data-providers-examples/tree/master/nodejs_ES6).
+## :warning: Deprecation warning :warning: this repository has been moved to https://github.com/france-connect/data-provider-example
